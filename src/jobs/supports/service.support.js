@@ -3,8 +3,6 @@ module.exports = {
 		const { payload } = event;
 		try {
 			const muestraTotal = require('./muestra')
-			//muestraTotal = transformarTextoPlanoAJson(muestraTotal)
-			//console.log('muestraTotal.length: ',muestraTotal.length)
 			const today = new Date();
 			const yyyy = today.getFullYear();
 			let mm = today.getMonth() + 1;
@@ -17,23 +15,22 @@ module.exports = {
 				let contDeducible = 1
 				let ListaDeducibles = {}
 				muestraTotal.forEach((deducible) => {
-					if (deducible.TEXTO = payload.texto) {
-						ListaDeducibles.idRegistro = formattedToday+'-'+contDeducible
+					if (deducible.TEXTO === payload.texto) {
+						ListaDeducibles = {}
+						ListaDeducibles.idRegistro = formattedToday+'-'+contDeducible //Campo ID propio de la búsqueda
 						ListaDeducibles.deducible = deducible.DEDUCIBLE
 						ListaDeducibles.copago = deducible.COPAGO
 						ListaDeducibles.moneda = deducible.MONEDA
 						ListaDeducibles.tipo = deducible.TIPO
 						ListaDeducibles.marca = deducible.MARCA
 						ListaDeducibles.taller = deducible.TALLER
-						contDeducible++
-						arrPromisesDeducibles.push(ListaDeducibles)
-					}
+						arrPromisesDeducibles.push(ListaDeducibles)					
+					}					
+					contDeducible++
 				})
 			} catch (error) {
 				console.log('ERROR : ', error)
 			}
-			//const respPromiseAllDeducibles = await Promise.all(arrPromisesDeducibles)
-			//console.log('RESULTADO - arrPromisesDeducibles: ', respPromiseAllDeducibles.length)
 			return arrPromisesDeducibles
 		} catch (error) {
 			const errorObj = new Error(error)
